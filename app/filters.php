@@ -68,10 +68,10 @@ Route::filter('hasAccess', function($route, $request, $value) {
         $user = Sentry::getUser();
 
         if (!$user->hasAccess($value)) {
-            return Redirect::route('cms.login')->withErrors(array(Lang::get('user.noaccess')));
+            return Redirect::route('admin.login')->withErrors(array(Lang::get('user.noaccess')));
         }
     } catch (Cartalyst\Sentry\Users\UserNotFoundException $e) {
-        return Redirect::route('cms.login')->withErrors(array(Lang::get('user.notfound')));
+        return Redirect::route('admin.login')->withErrors(array(Lang::get('user.notfound')));
     }
 });
 
@@ -82,12 +82,12 @@ Route::filter('inGroup', function($route, $request, $value) {
         $group = Sentry::findGroupByName($value);
 
         if (!$user->inGroup($group)) {
-            return Redirect::route('cms.login')->withErrors(array(Lang::get('user.noaccess')));
+            return Redirect::route('admin.login')->withErrors(array(Lang::get('user.noaccess')));
         }
     } catch (Cartalyst\Sentry\Users\UserNotFoundException $e) {
-        return Redirect::route('cms.login')->withErrors(array(Lang::get('user.notfound')));
+        return Redirect::route('admin.login')->withErrors(array(Lang::get('user.notfound')));
     } catch (Cartalyst\Sentry\Groups\GroupNotFoundException $e) {
-        return Redirect::route('cms.login')->withErrors(array(Lang::get('group.notfound')));
+        return Redirect::route('admin.login')->withErrors(array(Lang::get('group.notfound')));
     }
 });
 
