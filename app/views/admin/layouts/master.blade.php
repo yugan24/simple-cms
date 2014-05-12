@@ -1,88 +1,124 @@
-
 <!DOCTYPE html>
-<html lang="en">
+<html>
     <head>
         <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="description" content="">
-        <meta name="author" content="">
-        <link rel="shortcut icon" href="../../assets/ico/favicon.ico">
-        <title>@yield('title', 'Admin:Dashboard')</title>
+        <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
+        <title>@yield('title', 'Admin')</title>
 
-        <!-- Bootstrap core CSS -->
-        <link href="{{ URL::asset('backend/css/bootstrap.min.css') }}" rel="stylesheet">
+        {{HTML::style('backend/css/bootstrap.min.css')}}
+        {{HTML::style('backend/font-awesome/css/font-awesome.css')}}
+        {{HTML::style('backend/css/data-table-bootstrap.css')}}
         @yield('styles')
-        <link href="{{ URL::asset('backend/css/admin.css') }}" rel="stylesheet">
+        {{HTML::style('backend/css/admin.css')}}
 
-        <!-- Just for debugging purposes. Don't actually copy this line! -->
-        <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
-
-        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-        <!--[if lt IE 9]>
-          <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-          <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-        <![endif]-->
     </head>
-    <body>
 
-        <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-            <div class="container-fluid">
+    <body>
+        <div id="wrapper">
+            <nav class="navbar navbar-default navbar-fixed-top navbar-inverse" role="navigation">
                 <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-collapse">
                         <span class="sr-only">Toggle navigation</span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="#">Project name</a>
+                    <a class="navbar-brand" href="{{URL::route('admin.index')}}">Admin</a>
                 </div>
-                <div class="navbar-collapse collapse">
-                    <ul class="nav navbar-nav navbar-right">
-                        <li><a href="#">Dashboard</a></li>
-                        <li><a href="#">Settings</a></li>
-                        <li><a href="#">Profile</a></li>
-                        <li><a href="#">Help</a></li>
-                        <li><a href="{{URL::Route('admin.logout')}}">Logout</a></li>
-                    </ul>
-                    <form class="navbar-form navbar-right">
-                        <input type="text" class="form-control" placeholder="Search...">
-                    </form>
-                </div>
-            </div>
-        </div>
+                <!-- /.navbar-header -->
 
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-sm-3 col-md-2 sidebar">
-                    <ul class="nav nav-sidebar">
-                        <li class="active"><a href="#">Overview</a></li>
-                        <li><a href="#">Reports</a></li>
-                        <li><a href="#">Analytics</a></li>
-                        <li><a href="#">Export</a></li>
-                    </ul>
-                    <ul class="nav nav-sidebar">
-                        <li><a href="">Nav item</a></li>
-                        <li><a href="">Nav item again</a></li>
-                        <li><a href="">One more nav</a></li>
-                        <li><a href="">Another nav item</a></li>
-                        <li><a href="">More navigation</a></li>
-                    </ul>
-                    <ul class="nav nav-sidebar">
-                        <li><a href="">Nav item again</a></li>
-                        <li><a href="">One more nav</a></li>
-                        <li><a href="">Another nav item</a></li>
-                    </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Account
+                            <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <div class="navbar-content">
+                                    <div class="row">
+                                        <div class="col-md-5">
+                                            <img src="{{asset('backend/img/avatar.jpg')}}"
+                                                 alt="Alternate Text" class="img-responsive" />
+                                            <p class="text-center small">
+                                                <a href="#">Change Photo</a></p>
+                                        </div>
+                                        <div class="col-md-7">
+                                            <span>{{Sentry::getUser()->first_name}}</span>
+                                            <p class="text-muted small">
+                                                {{Sentry::getUser()->email}}</p>
+                                            <div class="divider">
+                                            </div>
+                                            <a href="#" class="btn btn-primary btn-sm active">View Profile</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="navbar-footer">
+                                    <div class="navbar-footer-content">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <a href="#" class="btn btn-default btn-sm">Change Passowrd</a>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <a href="{{URL::route('admin.logout')}}" class="btn btn-default btn-sm pull-right">Sign Out</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+                <!-- /.navbar-top-links -->
+
+                <div class="navbar-default navbar-static-side" role="navigation">
+                    <div class="sidebar-collapse">
+                        <ul class="nav" id="side-menu">
+                            <li class="sidebar-search">
+                                <div class="input-group custom-search-form">
+                                    <input type="text" class="form-control" placeholder="Search...">
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-default" type="button">
+                                            <i class="fa fa-search"></i>
+                                        </button>
+                                    </span>
+                                </div>
+                                <!-- /input-group -->
+                            </li>
+                            <li>
+                                <a href="{{URL::route('admin.index')}}"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
+                            </li>
+                            <li>
+                                <a href="#"><i class="fa fa-users fa-fw"></i> Users<span class="fa arrow"></span></a>
+                                <ul class="nav nav-second-level">
+                                    <li>
+                                        <a href="{{URL::route('admin.users.index')}}">Users list</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Groups</a>
+                                    </li>
+                                </ul>
+                                <!-- /.nav-second-level -->
+                            </li>
+                        </ul>
+                        <!-- /#side-menu -->
+                    </div>
+                    <!-- /.sidebar-collapse -->
                 </div>
-                <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-                    @yield('content')
-                </div>
+                <!-- /.navbar-static-side -->
+            </nav>
+
+            <div id="page-wrapper">
+                @yield('content')
             </div>
+            <!-- /#page-wrapper -->
+
         </div>
-        <script src="{{ URL::asset('backend/js/jquery.min.js') }}"></script>
-        <script src="{{ URL::asset('backend/js/bootstrap.min.js') }}"></script>
+        <!-- /#wrapper -->
+        {{HTML::script('backend/js/jquery.js')}}
+        {{HTML::script('backend/js/bootstrap.min.js')}}
+        {{HTML::script('backend/js/data-tables.js')}}
+        {{HTML::script('backend/js/data-table-bootstrap.js')}}
         @yield('scripts')
-        <script src="{{ URL::asset('backend/js/app.js') }}"></script>
+        {{HTML::script('backend/js/admin.js')}}
         @yield('custom_scripts')
     </body>
+
 </html>

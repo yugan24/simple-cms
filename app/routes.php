@@ -7,6 +7,7 @@ Route::post('admin/login', array('as' => 'admin.login.post', 'uses' => 'App\Cont
 Route::get('/', array('as' => 'home', 'uses' => 'App\Controllers\HomeController@index'));
 Route::group(array('prefix' => 'admin', 'before' => 'auth.admin|inGroup:Admin'), function() {
     Route::any('/', array('as' => 'admin.index', 'uses' => 'App\Controllers\Admin\HomeController@index'));
+    Route::resource('users', 'App\Controllers\Admin\UserController');
 });
 
 Route::get('install',  array('as' => 'install', function($key = null)  {

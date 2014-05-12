@@ -1,6 +1,11 @@
 @section('title','Dashboard')
 @section('content')
-<h1 class="page-header">Dashboard</h1>
+<div class="row">
+    <div class="col-lg-12">
+        <h1 class="page-header">DashBoard</h1>
+    </div>
+    <!-- /.col-lg-12 -->
+</div>
 
 <div class="row">
     <div class="col-xs-6 col-md-6">
@@ -145,19 +150,4 @@
         </tbody>
     </table>
 </div>
-@stop
-@section('scripts')
-<script src="{{ URL::asset('backend/js/mustache.js') }}"></script>
-@stop
-@section('custom_scripts')
-<script>
-var view = {
-    title: "Joe",
-    calc: function() {
-        return 2 + 4;
-    }
-};
-
-var output = Mustache.render("<% title %> spends <% calc %>", view);
-</script>
 @stop
